@@ -1,0 +1,91 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+  --content-max: 1200px;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+body {
+  background: theme('colors.sand');
+  color: theme('colors.ink.DEFAULT');
+  font-family: theme('fontFamily.sans');
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, h4 {
+  font-family: theme('fontFamily.display');
+  color: theme('colors.navy.900');
+  letter-spacing: -0.01em;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+[tabindex]:focus-visible {
+  outline: 3px solid theme('colors.sunset.500');
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+::selection {
+  background: theme('colors.sunset.500');
+  color: white;
+}
+
+@layer components {
+  .container-narrow {
+    @apply mx-auto w-full max-w-[var(--content-max)] px-5 sm:px-8;
+  }
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-sunset-700 px-7 py-3 text-sm font-semibold uppercase tracking-wider text-white shadow-sunset transition hover:-translate-y-0.5 hover:bg-sunset-800 focus-visible:bg-sunset-800;
+  }
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border-2 border-navy-800 px-7 py-3 text-sm font-semibold uppercase tracking-wider text-navy-800 transition hover:bg-navy-800 hover:text-white;
+  }
+  .btn-ghost-light {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border-2 border-white/70 px-7 py-3 text-sm font-semibold uppercase tracking-wider text-white transition hover:bg-white hover:text-navy-900;
+  }
+  .eyebrow {
+    @apply text-xs font-semibold uppercase tracking-[0.22em] text-sunset-600;
+  }
+  .section {
+    @apply py-20 md:py-28;
+  }
+  .prose-body p {
+    @apply text-ink-muted leading-relaxed;
+  }
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  background: theme('colors.navy.900');
+  color: white;
+  padding: 0.75rem 1.25rem;
+  border-radius: 0 0 6px 0;
+  font-weight: 600;
+}
+.skip-link:focus {
+  left: 0;
+}

@@ -1,0 +1,26 @@
+# Old WordPress URL → new static URL (301 permanent)
+# Works on Cloudflare Pages and Netlify out-of-the-box.
+
+/?page_id=19327         /about/             301
+/?page_id=19351         /team/              301
+/?page_id=19353         /services/          301
+/?page_id=19347         /services/          301
+/?page_id=19177         /faq/               301
+/?page_id=19048         /appointment/       301
+/contacts/              /contact/           301
+/contacts               /contact/           301
+
+# Old WordPress dentist profile demo
+/team/amy-walker/       /team/              301
+
+# WordPress shop / blog demo URLs that should not 404 silently
+/?page_id=372           /                   301
+/?page_id=20839         /                   301
+/?page_id=2331          /                   301
+/?page_id=2332          /                   301
+/?page_id=2333          /                   301
+/?page_id=6130          /                   301
+/?page_id=8             /                   301
+
+# 404 fallback
+/*                      /404.html           404
