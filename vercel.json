@@ -1,0 +1,27 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "cleanUrls": true,
+  "trailingSlash": true,
+  "redirects": [
+    { "source": "/contacts", "destination": "/contact", "permanent": true },
+    { "source": "/contacts/", "destination": "/contact/", "permanent": true },
+    { "source": "/team/amy-walker", "destination": "/team", "permanent": true },
+    { "source": "/team/amy-walker/", "destination": "/team/", "permanent": true },
+
+    { "source": "/", "has": [{ "type": "query", "key": "page_id", "value": "19327" }], "destination": "/about/", "permanent": true },
+    { "source": "/", "has": [{ "type": "query", "key": "page_id", "value": "19351" }], "destination": "/team/", "permanent": true },
+    { "source": "/", "has": [{ "type": "query", "key": "page_id", "value": "19353" }], "destination": "/services/", "permanent": true },
+    { "source": "/", "has": [{ "type": "query", "key": "page_id", "value": "19347" }], "destination": "/services/", "permanent": true },
+    { "source": "/", "has": [{ "type": "query", "key": "page_id", "value": "19177" }], "destination": "/faq/", "permanent": true },
+    { "source": "/", "has": [{ "type": "query", "key": "page_id", "value": "19048" }], "destination": "/appointment/", "permanent": true },
+    { "source": "/", "has": [{ "type": "query", "key": "page_id", "value": "19344" }], "destination": "/", "permanent": true },
+
+    { "source": "/", "has": [{ "type": "query", "key": "page_id", "value": "372" }], "destination": "/", "permanent": true },
+    { "source": "/", "has": [{ "type": "query", "key": "page_id", "value": "20839" }], "destination": "/", "permanent": true },
+    { "source": "/", "has": [{ "type": "query", "key": "page_id", "value": "2331" }], "destination": "/", "permanent": true },
+    { "source": "/", "has": [{ "type": "query", "key": "page_id", "value": "2332" }], "destination": "/", "permanent": true },
+    { "source": "/", "has": [{ "type": "query", "key": "page_id", "value": "2333" }], "destination": "/", "permanent": true },
+    { "source": "/", "has": [{ "type": "query", "key": "page_id", "value": "6130" }], "destination": "/", "permanent": true },
+    { "source": "/", "has": [{ "type": "query", "key": "page_id", "value": "8" }], "destination": "/", "permanent": true }
+  ]
+}
