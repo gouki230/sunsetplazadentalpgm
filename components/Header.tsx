@@ -154,17 +154,20 @@ export default function Header() {
               className="inline-flex items-center gap-2 text-navy-100 transition hover:text-sunset-500"
             >
               <span className="text-sunset-500"><PinIcon /></span>
-              {site.address.street}, {site.address.city}, {site.address.region} {site.address.postalCode}
+              <address className="not-italic">
+                {site.address.street}, {site.address.city}, {site.address.region} {site.address.postalCode}
+              </address>
+              <span className="sr-only"> (opens in new tab)</span>
             </a>
           </div>
           <div className="flex items-center gap-3">
-            <a href={site.socials.instagram} aria-label="Instagram" target="_blank" rel="noopener noreferrer" className="inline-flex h-7 w-7 items-center justify-center text-navy-100 transition hover:text-sunset-500">
+            <a href={site.socials.instagram} aria-label="Instagram (opens in new tab)" target="_blank" rel="noopener noreferrer" className="inline-flex h-7 w-7 items-center justify-center text-navy-100 transition hover:text-sunset-500">
               <InstagramIcon />
             </a>
-            <a href={site.socials.facebook} aria-label="Facebook" target="_blank" rel="noopener noreferrer" className="inline-flex h-7 w-7 items-center justify-center text-navy-100 transition hover:text-sunset-500">
+            <a href={site.socials.facebook} aria-label="Facebook (opens in new tab)" target="_blank" rel="noopener noreferrer" className="inline-flex h-7 w-7 items-center justify-center text-navy-100 transition hover:text-sunset-500">
               <FacebookIcon />
             </a>
-            <a href={site.socials.google} aria-label="Google" target="_blank" rel="noopener noreferrer" className="inline-flex h-7 w-7 items-center justify-center text-navy-100 transition hover:text-sunset-500">
+            <a href={site.socials.google} aria-label="Google Business profile (opens in new tab)" target="_blank" rel="noopener noreferrer" className="inline-flex h-7 w-7 items-center justify-center text-navy-100 transition hover:text-sunset-500">
               <GoogleIcon />
             </a>
           </div>
@@ -181,7 +184,7 @@ export default function Header() {
           <Link href="/" aria-label={`${site.name} home`} className="inline-flex shrink-0 items-center">
             <Image
               src={site.logo.primary}
-              alt={site.name}
+              alt=""
               width={site.logo.primaryWidth}
               height={site.logo.primaryHeight}
               priority

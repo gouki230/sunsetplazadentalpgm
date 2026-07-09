@@ -46,7 +46,7 @@ export default function HeroVideo() {
 
   return (
     <section
-      aria-label="Welcome to Sunset Plaza Dental"
+      aria-labelledby="hero-heading"
       className="relative isolate overflow-hidden bg-navy-950 text-white"
     >
       {/* Poster fallback always rendered for fast first paint and reduced-motion users */}
@@ -93,6 +93,7 @@ export default function HeroVideo() {
             West Hollywood · Sunset Plaza · Since 2014
           </p>
           <h1
+            id="hero-heading"
             data-aos="fade-up"
             data-aos-delay="120"
             className="mt-4 font-display text-4xl leading-[1.05] text-white sm:text-5xl md:text-6xl lg:text-7xl"
