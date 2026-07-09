@@ -19,6 +19,11 @@ html {
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
   }
+  /* Fallback: AOS-controlled elements must remain visible even if the animation is skipped. */
+  [data-aos] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
 }
 
 body {

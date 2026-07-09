@@ -1,13 +1,21 @@
 'use client';
 
 import Script from 'next/script';
+import { site } from '@/data/site';
 
 type EmbedFormProps = {
   minHeight?: number | string;
   className?: string;
+  title?: string;
+  formName?: string;
 };
 
-export default function EmbedForm({ minHeight = 640, className }: EmbedFormProps) {
+export default function EmbedForm({
+  minHeight = 640,
+  className,
+  title = 'Contact form',
+  formName = 'Sunset Plaza Dental web form',
+}: EmbedFormProps) {
   const height = typeof minHeight === 'number' ? `${minHeight}px` : minHeight;
 
   return (
@@ -23,12 +31,23 @@ export default function EmbedForm({ minHeight = 640, className }: EmbedFormProps
         data-activation-value=""
         data-deactivation-type="neverDeactivate"
         data-deactivation-value=""
-        data-form-name="sunsetplazadental Web Form "
+        data-form-name={formName}
         data-height="undefined"
         data-layout-iframe-id="inline-1YGAD6UCtZLxOOQDchAd"
         data-form-id="1YGAD6UCtZLxOOQDchAd"
-        title="sunsetplazadental Web Form "
+        title={title}
       />
+      <p className="mt-3 text-xs text-ink-muted">
+        Having trouble with the form? Call us at{' '}
+        <a href={site.phoneHref} className="font-semibold underline hover:text-sunset-600">
+          {site.phone}
+        </a>{' '}
+        or email{' '}
+        <a href={`mailto:${site.email}`} className="font-semibold underline hover:text-sunset-600">
+          {site.email}
+        </a>
+        .
+      </p>
       <Script
         id="lnseoservices-form-embed"
         src="https://api.lnseoservices.com/js/form_embed.js"
