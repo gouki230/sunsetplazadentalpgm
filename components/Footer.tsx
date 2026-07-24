@@ -1,14 +1,18 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import NewsletterForm from './NewsletterForm';
 import { site } from '@/data/site';
 
 const menuLinks = [
   { href: '/', label: 'Home' },
-  { href: '/services', label: 'Dental Services' },
   { href: '/about', label: 'About Us' },
+  { href: '/team', label: 'Our Team' },
+  { href: '/services', label: 'Dental Services' },
+  { href: '/faq', label: 'FAQ' },
+];
+
+const actionLinks = [
   { href: '/appointment', label: 'Request an Appointment' },
-  { href: '/contact', label: 'Contact' },
+  { href: '/contact', label: 'Contact Us' },
 ];
 
 const legalLinks = [
@@ -34,13 +38,6 @@ function InstagramIcon() {
   );
 }
 
-const socialIcons = [
-  { href: site.socials.facebook, label: 'Facebook', icon: <FacebookIcon /> },
-  { href: site.socials.instagram, label: 'Instagram', icon: <InstagramIcon /> },
-  { href: site.socials.google, label: 'Google', icon: <GoogleReviewIcon /> },
-  { href: site.socials.yelp, label: 'Yelp', icon: <YelpIcon /> },
-];
-
 function GoogleReviewIcon() {
   return (
     <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -60,65 +57,62 @@ function YelpIcon() {
   );
 }
 
+const socialIcons = [
+  { href: site.socials.facebook, label: 'Facebook', icon: <FacebookIcon /> },
+  { href: site.socials.instagram, label: 'Instagram', icon: <InstagramIcon /> },
+  { href: site.socials.google, label: 'Google', icon: <GoogleReviewIcon /> },
+  { href: site.socials.yelp, label: 'Yelp', icon: <YelpIcon /> },
+];
+
+function formatTime(t: string | null) {
+  if (!t) return null;
+  const [h, m] = t.split(':').map(Number);
+  const period = h >= 12 ? 'PM' : 'AM';
+  const hour12 = ((h + 11) % 12) + 1;
+  return `${hour12}:${m.toString().padStart(2, '0')} ${period}`;
+}
+
 export default function Footer() {
   const year = new Date().getFullYear();
   return (
     <footer className="bg-navy-950 text-navy-100">
       <div className="container-narrow py-16">
-        {/* Top row: logo + headline */}
-        <div className="grid items-center gap-10 border-b border-white/10 pb-12 md:grid-cols-2">
-          <div className="flex justify-center md:justify-start">
-            <Image
-              src={site.logo.primary}
-              alt={site.name}
-              width={site.logo.primaryWidth}
-              height={site.logo.primaryHeight}
-              className="h-24 w-auto md:h-28"
-            />
-          </div>
-          <h2 className="font-display text-2xl text-white sm:text-3xl md:text-center md:text-4xl">
-            Innovative Therapy<br />
-            <span className="text-sun-400">&amp; Qualified Dentists</span>
-          </h2>
-        </div>
-
-        {/* Middle row: 4 columns */}
-        <div className="grid gap-10 py-12 sm:grid-cols-2 lg:grid-cols-4">
-          <div>
-            <h3 className="font-display text-xl text-white">Newsletter Signup</h3>
-            <div className="mt-3 h-px w-10 bg-sunset-500" aria-hidden="true" />
-            <p className="mt-4 text-sm text-navy-200">
-              Occasional tips for your oral health — no spam, ever.
+        {/* Main grid: 4 columns on desktop */}
+        <div className="grid gap-10 lg:grid-cols-12 lg:gap-12">
+          {/* Brand */}
+          <div className="lg:col-span-4">
+            <Link href="/" aria-label={`${site.name} home`} className="inline-flex">
+              <Image
+                src={site.logo.primary}
+                alt=""
+                width={site.logo.primaryWidth}
+                height={site.logo.primaryHeight}
+                className="h-20 w-auto md:h-24"
+              />
+            </Link>
+            <p className="mt-5 max-w-sm text-sm leading-relaxed text-navy-200">
+              {site.description}
             </p>
-            <div className="mt-4">
-              <NewsletterForm />
-            </div>
-          </div>
-
-          <nav aria-label="Socials">
-            <h3 className="font-display text-xl text-white">Socials</h3>
-            <div className="mt-3 h-px w-10 bg-sunset-500" aria-hidden="true" />
-            <ul className="mt-4 space-y-2 text-sm">
+            <ul className="mt-6 flex items-center gap-3" aria-label="Social media">
               {socialIcons.map((s) => (
                 <li key={s.label}>
                   <a
                     href={s.href}
-                    target={s.href.startsWith('http') ? '_blank' : undefined}
-                    rel={s.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                    className="inline-flex items-center gap-3 text-navy-200 transition hover:text-sunset-500"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`${s.label} (opens in new tab)`}
+                    className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/5 text-sunset-500 transition hover:bg-sunset-500 hover:text-white"
                   >
-                    <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-white/5 text-sunset-500">
-                      {s.icon}
-                    </span>
-                    {s.label}
+                    {s.icon}
                   </a>
                 </li>
               ))}
             </ul>
-          </nav>
+          </div>
 
-          <nav aria-label="Menu">
-            <h3 className="font-display text-xl text-white">Menu</h3>
+          {/* Menu */}
+          <nav aria-label="Site navigation" className="lg:col-span-2">
+            <h3 className="font-display text-lg text-white">Explore</h3>
             <div className="mt-3 h-px w-10 bg-sunset-500" aria-hidden="true" />
             <ul className="mt-4 space-y-2 text-sm">
               {menuLinks.map((l) => (
@@ -128,13 +122,69 @@ export default function Footer() {
                   </Link>
                 </li>
               ))}
+              {actionLinks.map((l) => (
+                <li key={l.href}>
+                  <Link href={l.href} className="text-navy-200 transition hover:text-sunset-500">
+                    {l.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </nav>
 
-          <nav aria-label="Legal">
-            <h3 className="font-display text-xl text-white">Legal</h3>
+          {/* Visit */}
+          <div className="lg:col-span-3">
+            <h3 className="font-display text-lg text-white">Visit us</h3>
             <div className="mt-3 h-px w-10 bg-sunset-500" aria-hidden="true" />
-            <ul className="mt-4 space-y-2 text-sm">
+            <address className="not-italic mt-4 text-sm leading-relaxed text-navy-200">
+              {site.address.street}<br />
+              {site.address.city}, {site.address.region} {site.address.postalCode}
+            </address>
+            <p className="mt-4 text-sm">
+              <a href={site.phoneHref} className="text-white transition hover:text-sunset-500">
+                {site.phone}
+              </a>
+            </p>
+            <p className="mt-1 text-sm">
+              <a
+                href={`mailto:${site.email}`}
+                className="break-words text-navy-200 transition hover:text-sunset-500"
+              >
+                {site.email}
+              </a>
+            </p>
+            <Link
+              href="/appointment"
+              className="mt-5 inline-flex items-center justify-center rounded-full bg-sunset-700 px-5 py-2.5 text-xs font-semibold uppercase tracking-wider text-white shadow-sunset transition hover:bg-sunset-800"
+            >
+              Book an appointment
+            </Link>
+          </div>
+
+          {/* Hours */}
+          <div className="lg:col-span-3">
+            <h3 className="font-display text-lg text-white">Hours</h3>
+            <div className="mt-3 h-px w-10 bg-sunset-500" aria-hidden="true" />
+            <ul className="mt-4 space-y-1.5 text-sm text-navy-200">
+              {site.hours.map((h) => (
+                <li key={h.day} className="flex justify-between gap-3">
+                  <span>{h.day}</span>
+                  <span className="text-right text-navy-100">
+                    {h.open ? `${formatTime(h.open)} – ${formatTime(h.close)}` : h.note ?? 'Closed'}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        {/* Bottom: legal + copyright */}
+        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-6 text-sm md:flex-row">
+          <p className="text-navy-300">
+            © {year} {site.name}. All rights reserved.
+          </p>
+          <nav aria-label="Legal links">
+            <ul className="flex flex-wrap items-center gap-x-6 gap-y-2">
               {legalLinks.map((l) => (
                 <li key={l.href}>
                   <Link href={l.href} className="text-navy-200 transition hover:text-sunset-500">
@@ -142,26 +192,8 @@ export default function Footer() {
                   </Link>
                 </li>
               ))}
-              <li>
-                <address className="not-italic mt-4 text-sm leading-relaxed text-navy-200">
-                  {site.address.street}<br />
-                  {site.address.city}, {site.address.region} {site.address.postalCode}
-                </address>
-              </li>
-              <li>
-                <a href={site.phoneHref} className="text-sm text-navy-200 hover:text-sunset-500">
-                  {site.phone}
-                </a>
-              </li>
             </ul>
           </nav>
-        </div>
-
-        {/* Bottom: copyright */}
-        <div className="border-t border-white/10 pt-6 text-center text-sm">
-          <p className="text-navy-200">
-            © {year}. <span className="text-white">All Rights Reserved {site.name}</span>
-          </p>
         </div>
       </div>
     </footer>
